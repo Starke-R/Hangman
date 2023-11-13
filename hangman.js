@@ -12,7 +12,6 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
     mainDiv.innerHTML = wordNum;
 
     document.getElementById("mainContainer").append(mainDiv);
-
    }
 
    )
