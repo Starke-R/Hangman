@@ -1,6 +1,32 @@
-.randomWords{
+#containerLetters{
     display: flex;
-    font-size: 50px;
-    justify-content: space-between;
-
+    flex-direction: row;
+    gap: 20px;
 }
+
+#containerReveal{
+    display: flex;
+    flex-direction: row;
+    font-size: 50px;
+    gap: 15px;
+    margin-bottom: -10px;
+}
+
+#containerUnderscores{
+    margin-top: -10px;
+    display: flex;
+    flex-direction: row;
+    font-size: 50px;
+    gap: 15px;
+}
+
+h1{
+    font-size: 50px;
+    visibility: hidden;
+}
+
+h2{
+    font-size: 50px;
+    visibility: visible;
+}
+

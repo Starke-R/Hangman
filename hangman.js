@@ -4,35 +4,26 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
 
         let word = json[0];
         let wordNum = "";
-        let wordLetter = "";
 
-        let letterDiv = document.createElement("div");
-        
         for (let i = 0; i < word.length; i++) {
-            wordLetter = word;
+            
+            let letterDiv = document.createElement("div");
+            let wordLetter = word[i];
+
+            letterDiv.innerHTML = "<h1>" + wordLetter + "</h1>";
+            letterDiv.classList.add("randomWords");
+
+            document.getElementById("containerLetters").append(letterDiv);
+
         }
-        letterDiv.innerText = wordLetter;
-        letterDiv.classList.add("randomWords");
-
-        document.getElementById("mainContainer").append(letterDiv);
-
-
-
 
         let underscoreDiv = document.createElement("div");
 
         for (let i = 0; i < word.length; i++) {
             wordNum = wordNum + "_ ";
         }
-
-        
         underscoreDiv.innerText = wordNum;
-        underscoreDiv.classList.add("randomWords");
-
-        document.getElementById("mainContainer").append(underscoreDiv);
-
-
-
+        document.getElementById("containerUnderscores").append(underscoreDiv);
 
 
 
@@ -41,21 +32,28 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
             if (event.key === "Enter") {
                 let guess = document.getElementById("guessLetter").value;
 
-                if (guess.length > 1 ){
+                if (guess.length > 1) {
                     alert("No more than one letter at a time!");
                 }
 
                 else {
-                
-                for (let i = 0; i < word.length; i++) {
-                   if (guess == word[i]){
-                    console.log(guess)
-                   }
-                   
+
+                    for (let i = 0; i < word.length; i++) {
+                        if (guess == word[i]) {
+                            let check = document.getElementsByClassName("randomWords")
+                            if (check[i].innerHTML.indexOf(word[i]) !== -1) {
+                                check[i].innerHTML = "<h2>" + word[i] + "</h2>"
+                                document.getElementById("containerLetters").append(check[i]);
+                                document.getElementById("guessLetter").value = "";
+                                console.log("heh");
+                                return
+                             }
+                        }
+
+                    }
+
                 }
-        
-                }
-        
+
             }
         });
 
