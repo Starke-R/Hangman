@@ -6,12 +6,12 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
         let wordNum = "";
 
         for (let i = 0; i < word.length; i++) {
-            
+
             let letterDiv = document.createElement("div");
             let wordLetter = word[i];
 
             letterDiv.innerHTML = "<h1>" + wordLetter + "</h1>";
-            letterDiv.classList.add("randomWords");
+            letterDiv.classList.add("checker");
 
             document.getElementById("containerLetters").append(letterDiv);
 
@@ -40,14 +40,15 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
 
                     for (let i = 0; i < word.length; i++) {
                         if (guess == word[i]) {
-                            let check = document.getElementsByClassName("randomWords")
+                            let check = document.getElementsByClassName("checker")
                             if (check[i].innerHTML.indexOf(word[i]) !== -1) {
                                 check[i].innerHTML = "<h2>" + word[i] + "</h2>"
-                                document.getElementById("containerLetters").append(check[i]);
+
                                 document.getElementById("guessLetter").value = "";
+                                
                                 console.log("heh");
-                                return
-                             }
+                                
+                            }
                         }
 
                     }
