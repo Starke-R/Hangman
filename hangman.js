@@ -5,7 +5,7 @@ canvas.width = 500;
 canvas.height = 500;
 
 let wrongGuesses = 0;
-let counted = 0;
+
 
 // Fetching API that generates a random word in English
 fetch("https://random-word-api.herokuapp.com/word?lang=en")
@@ -49,7 +49,7 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
                     alert("No more than one letter at a time!");
                 }
 
-                // Checks if the guessed letter is correct, in which case the letter is displayed
+                // Checks if the guessed letter is correct, in which case the letter is goes from hidden to being displayed
                 else {
                     for (let i = 0; i < word.length; i++) {
                         if (guess == word[i]) {
@@ -59,34 +59,22 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
                                 document.getElementById("guessLetter").value = "";
                             }
                         }
-                        else {
-                            wrongGuesses++;
-                            let count = 0;
-                            for (let i = 0; i < word.length; i++) {
-                                count++;
-                                counted = count - wrongGuesses;
-                                if (counted == 1) {
-                                    // Horizontal ground
-                                    ctx.strokeStyle = "white";
-                                    ctx.beginPath();
-                                    ctx.moveTo(500, 500);
-                                    ctx.lineTo(0, 500);
-                                    ctx.lineWidth = 25;
-                                    ctx.stroke();
-                                }
-                                if (counted == 2) {
-                                    // Horizontal ground
-                                    // Vertical bar
-                                    ctx.beginPath();
-                                    ctx.moveTo(350, 490);
-                                    ctx.lineTo(350, 50);
-                                    ctx.lineWidth = 15;
-                                    ctx.stroke();
-                                }
+
+                        // Checks if the guessed letter is incorrect, if so then start drawing the hangman
+                        for (let i = 0; i < word.length; i++) {
+                            if (!word.includes(guess)) {
+                                wrongGuesses++;
+                                drawFunction(wrongGuesses)
+                                document.getElementById("guessLetter").value = "";
+                                return
                             }
+
+
                         }
                     }
+
                 }
+
             }
         });
 
@@ -94,6 +82,93 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
     }
     )
 
+
+function drawFunction(wrongGuesses) {
+
+    if (wrongGuesses == 1) {
+        // Horizontal ground
+        ctx.strokeStyle = "white";
+        ctx.beginPath();
+        ctx.moveTo(500, 500);
+        ctx.lineTo(0, 500);
+        ctx.lineWidth = 25;
+        ctx.stroke();
+    }
+
+    if (wrongGuesses == 2) {
+        // Vertical bar
+        ctx.beginPath();
+        ctx.moveTo(350, 490);
+        ctx.lineTo(350, 50);
+        ctx.lineWidth = 15;
+        ctx.stroke();
+    }
+
+    if (wrongGuesses == 3) {
+        // Horizontal bar
+        ctx.beginPath();
+        ctx.moveTo(357, 57);
+        ctx.lineTo(150, 57);
+        ctx.lineWidth = 15;
+        ctx.stroke();
+    }
+
+    if (wrongGuesses == 4) {
+        // Diagonal bar
+        ctx.beginPath();
+        ctx.moveTo(350, 130);
+        ctx.lineTo(250, 57);
+        ctx.lineWidth = 15;
+        ctx.stroke();
+    }
+
+    if (wrongGuesses == 5) {
+        // Rope
+        ctx.beginPath();
+        ctx.moveTo(155, 170);
+        ctx.lineTo(155, 62);
+        ctx.lineWidth = 10;
+        ctx.stroke();
+    }
+
+    if (wrongGuesses == 6) {
+        // Head
+        ctx.beginPath();
+        ctx.arc(155, 200, 35, 2 * Math.PI, false);
+        ctx.fillStyle = "white";
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(155, 200, 30, 2 * Math.PI, false);
+        ctx.fillStyle = "black";
+        ctx.fill();
+    }
+
+    if (wrongGuesses == 7) {
+        // Body
+        ctx.beginPath();
+        ctx.moveTo(155, 350);
+        ctx.lineTo(155, 230);
+        ctx.lineWidth = 5;
+        ctx.stroke();
+    }
+
+    if (wrongGuesses == 8) {
+        // Arms and legs
+        ctx.beginPath();
+        ctx.moveTo(155, 350);
+        ctx.lineTo(155, 230);
+        ctx.moveTo(200, 290);
+        ctx.lineTo(155, 235);
+        ctx.moveTo(200, 390);
+        ctx.lineTo(155, 347);
+        ctx.moveTo(100, 290);
+        ctx.lineTo(155, 235);
+        ctx.moveTo(100, 390);
+        ctx.lineTo(155, 347);
+        ctx.lineWidth = 5;
+        ctx.stroke();
+    }
+}
 
 /*
 // Horizontal ground
@@ -155,7 +230,7 @@ ctx.lineTo(155, 230);
 ctx.lineWidth = 5;
 ctx.stroke();
 
-// Body
+// Arms and legs
 ctx.beginPath();
 ctx.moveTo(155, 350);
 ctx.lineTo(155, 230);
