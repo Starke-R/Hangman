@@ -1,29 +1,40 @@
 <!doctype html>
 
 <head>
-    <title>HANGMAN</title>
-    <link href="hangman.css" rel="stylesheet">
+  <title>HANGMAN</title>
+  <link href="hangman.css" rel="stylesheet">
 </head>
 
 <body>
-    <style>
-        canvas {
-          border: 1px solid black;
-        }
-      </style>
-    <canvas id="canvas"></canvas>
-    <div id="mainContainer">
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+  <canvas id="canvas"></canvas>
+
+
+
+  <div id="mainContainer">
+
+    <div id="displayGuesses"></div>
+
     <div id="containerLetters"></div>
 
     <div id="containerUnderscores"></div>
-    
-</div>
-    <br>
 
-    <input type="text" id="guessLetter" name="guessLetter" placeholder="Enter a letter to guess">
+    <div id="winScore"></div>
+
+    <div id="loseScore"></div>
+
+  </div>
+
+  <br>
+
+  <input type="text" id="guessLetter" name="guessLetter" placeholder="Enter a letter to guess">
 
 
-    <script src="hangman.js"></script>
+  <script src="hangman.js"></script>
 </body>
 
 </html>

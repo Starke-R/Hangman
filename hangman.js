@@ -5,6 +5,9 @@ canvas.width = 500;
 canvas.height = 500;
 
 let wrongGuesses = 0;
+let numOfGuesses = 8;
+let losses = 0;
+let wins = 0;
 
 
 // Fetching API that generates a random word in English
@@ -13,8 +16,6 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
     .then((json) => {
 
         let word = json[0];
-        let wordNum = "";
-
 
         // The word is separated into its individual letters
         for (let i = 0; i < word.length; i++) {
@@ -25,17 +26,33 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
             letterDiv.innerHTML = "<h1>" + wordLetter + "</h1>";
             letterDiv.classList.add("checker");
 
+            document.getElementById("containerLetters").style.marginRight = "50";
             document.getElementById("containerLetters").append(letterDiv);
 
         }
 
-        let underscoreDiv = document.createElement("div");
-
         for (let i = 0; i < word.length; i++) {
-            wordNum = wordNum + "_";
+
+            let underscoreDiv = document.createElement("div");
+
+            underscoreDiv.innerHTML = "<h2>" + "_" + "</h2>";
+
+            document.getElementById("containerUnderscores").append(underscoreDiv);
+            document.getElementById("containerUnderscores").style.marginRight = "50";
         }
-        underscoreDiv.innerText = wordNum;
-        document.getElementById("containerUnderscores").append(underscoreDiv);
+
+
+        let winsDisplayed = document.getElementById("winScore")
+        winsDisplayed.innerText = "Wins: " + losses;
+        document.getElementById("mainContainer").append(winsDisplayed);
+
+        let lossesDisplayed = document.getElementById("loseScore")
+        lossesDisplayed.innerText = "Losses: " + losses;
+        document.getElementById("mainContainer").append(lossesDisplayed);
+
+        let guessesDisplayed = document.getElementById("displayGuesses")
+        guessesDisplayed.innerText = "Guesses remaining: " + numOfGuesses;
+        document.getElementById("mainContainer").append(guessesDisplayed);
 
 
         // Gets the value from the input field when "enter" is pressed
@@ -60,7 +77,7 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
                             }
                         }
 
-                        // Checks if the guessed letter is incorrect, if so then start drawing the hangman
+                        // Checks if the guessed letter is incorrect, if so then call function to draw the hangman
                         for (let i = 0; i < word.length; i++) {
                             if (!word.includes(guess)) {
                                 wrongGuesses++;
@@ -68,21 +85,16 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
                                 document.getElementById("guessLetter").value = "";
                                 return
                             }
-
-
                         }
                     }
-
                 }
-
             }
         });
-
 
     }
     )
 
-
+// Function that draws the hangman
 function drawFunction(wrongGuesses) {
 
     if (wrongGuesses == 1) {
@@ -93,6 +105,7 @@ function drawFunction(wrongGuesses) {
         ctx.lineTo(0, 500);
         ctx.lineWidth = 25;
         ctx.stroke();
+        numOfGuesses--;
     }
 
     if (wrongGuesses == 2) {
@@ -102,6 +115,7 @@ function drawFunction(wrongGuesses) {
         ctx.lineTo(350, 50);
         ctx.lineWidth = 15;
         ctx.stroke();
+        numOfGuesses--;
     }
 
     if (wrongGuesses == 3) {
@@ -111,6 +125,7 @@ function drawFunction(wrongGuesses) {
         ctx.lineTo(150, 57);
         ctx.lineWidth = 15;
         ctx.stroke();
+        numOfGuesses--;
     }
 
     if (wrongGuesses == 4) {
@@ -120,6 +135,7 @@ function drawFunction(wrongGuesses) {
         ctx.lineTo(250, 57);
         ctx.lineWidth = 15;
         ctx.stroke();
+        numOfGuesses--;
     }
 
     if (wrongGuesses == 5) {
@@ -129,6 +145,7 @@ function drawFunction(wrongGuesses) {
         ctx.lineTo(155, 62);
         ctx.lineWidth = 10;
         ctx.stroke();
+        numOfGuesses--;
     }
 
     if (wrongGuesses == 6) {
@@ -141,6 +158,7 @@ function drawFunction(wrongGuesses) {
         ctx.arc(155, 200, 30, 2 * Math.PI, false);
         ctx.fillStyle = "black";
         ctx.fill();
+        numOfGuesses--;
     }
 
     if (wrongGuesses == 7) {
@@ -150,6 +168,7 @@ function drawFunction(wrongGuesses) {
         ctx.lineTo(155, 230);
         ctx.lineWidth = 5;
         ctx.stroke();
+        numOfGuesses--;
     }
 
     if (wrongGuesses == 8) {
@@ -167,8 +186,27 @@ function drawFunction(wrongGuesses) {
         ctx.lineTo(155, 347);
         ctx.lineWidth = 5;
         ctx.stroke();
+        numOfGuesses--;
+        alert("You lose!");
+        losses++;
+        let lossesDisplayed = document.getElementById("loseScore")
+        lossesDisplayed.innerText = "Losses: " + losses;
+        document.getElementById("mainContainer").append(lossesDisplayed);
+
     }
+
+
+    let guessesDisplayed = document.getElementById("displayGuesses")
+    guessesDisplayed.innerText = "Guesses remaining: " + numOfGuesses;
+    document.getElementById("mainContainer").append(guessesDisplayed);
+
 }
+
+
+
+
+
+
 
 /*
 // Horizontal ground
