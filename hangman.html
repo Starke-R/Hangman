@@ -6,32 +6,40 @@
 </head>
 
 <body>
-  <style>
-    canvas {
-      border: 1px solid black;
-    }
-  </style>
-  <canvas id="canvas"></canvas>
-
-
 
   <div id="mainContainer">
 
-    <div id="displayGuesses"></div>
+    <div id="scoreContainer">
 
-    <div id="containerLetters"></div>
+      <div id="displayGuesses"></div>
 
-    <div id="containerUnderscores"></div>
+      <div id="winScore"></div>
 
-    <div id="winScore"></div>
+      <div id="loseScore"></div>
 
-    <div id="loseScore"></div>
+
+      <button id="newGameBtn" onClick="window.location.reload();">New game</button>
+
+    </div>
+
+    <div id="gameContainer">
+
+      <input type="text" id="guessLetter" name="guessLetter" placeholder="Enter a letter to guess">
+
+      <canvas id="canvas"></canvas>
+
+      <div id="containerLetters"></div>
+
+      <div id="containerUnderscores"></div>
+      
+
+    </div>
 
   </div>
 
   <br>
 
-  <input type="text" id="guessLetter" name="guessLetter" placeholder="Enter a letter to guess">
+  
 
 
   <script src="hangman.js"></script>

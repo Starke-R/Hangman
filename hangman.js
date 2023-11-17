@@ -5,9 +5,10 @@ canvas.width = 500;
 canvas.height = 500;
 
 let wrongGuesses = 0;
+let rightGuesses = 0;
 let numOfGuesses = 8;
-let losses = 0;
-let wins = 0;
+
+
 
 
 // Fetching API that generates a random word in English
@@ -16,6 +17,9 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
     .then((json) => {
 
         let word = json[0];
+        let wins = 0;
+        let losses = 0;
+        
 
         // The word is separated into its individual letters
         for (let i = 0; i < word.length; i++) {
@@ -41,18 +45,19 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
             document.getElementById("containerUnderscores").style.marginRight = "50";
         }
 
+        
 
         let winsDisplayed = document.getElementById("winScore")
-        winsDisplayed.innerText = "Wins: " + losses;
-        document.getElementById("mainContainer").append(winsDisplayed);
+        winsDisplayed.innerText = "Wins: " + wins;
+        document.getElementById("scoreContainer").append(winsDisplayed);
 
         let lossesDisplayed = document.getElementById("loseScore")
         lossesDisplayed.innerText = "Losses: " + losses;
-        document.getElementById("mainContainer").append(lossesDisplayed);
+        document.getElementById("scoreContainer").append(lossesDisplayed);
 
         let guessesDisplayed = document.getElementById("displayGuesses")
-        guessesDisplayed.innerText = "Guesses remaining: " + numOfGuesses;
-        document.getElementById("mainContainer").append(guessesDisplayed);
+        guessesDisplayed.innerText = "Wrong guesses remaining: " + numOfGuesses;
+        document.getElementById("scoreContainer").append(guessesDisplayed);
 
 
         // Gets the value from the input field when "enter" is pressed
@@ -74,6 +79,15 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
                             if (check[i].innerHTML.indexOf(word[i]) !== -1) {
                                 check[i].innerHTML = "<h2>" + word[i] + "</h2>"
                                 document.getElementById("guessLetter").value = "";
+                                rightGuesses++;
+
+                                if (rightGuesses == word.length) {
+                                    wins++;
+                                    let winsDisplayed = document.getElementById("winScore")
+                                    winsDisplayed.innerText = "Wins: " + wins;
+                                    document.getElementById("scoreContainer").append(winsDisplayed);
+                                    localStorage.setItem("wins", wins);
+                                }
                             }
                         }
 
@@ -191,18 +205,34 @@ function drawFunction(wrongGuesses) {
         losses++;
         let lossesDisplayed = document.getElementById("loseScore")
         lossesDisplayed.innerText = "Losses: " + losses;
-        document.getElementById("mainContainer").append(lossesDisplayed);
-
+        document.getElementById("scoreContainer").append(lossesDisplayed);
+        localStorage.setItem("losses", losses);        
     }
 
 
     let guessesDisplayed = document.getElementById("displayGuesses")
-    guessesDisplayed.innerText = "Guesses remaining: " + numOfGuesses;
-    document.getElementById("mainContainer").append(guessesDisplayed);
+    guessesDisplayed.innerText = "Wrong guesses remaining: " + numOfGuesses;
+    document.getElementById("scoreContainer").append(guessesDisplayed);
 
 }
 
+window.onload = function () {
 
+    wins = localStorage.getItem("wins");
+    losses = localStorage.getItem("losses");
+
+    let winsDisplayed = document.getElementById("winScore")
+    winsDisplayed.innerText = "Wins: " + wins;
+    document.getElementById("scoreContainer").append(winsDisplayed);
+
+    let lossesDisplayed = document.getElementById("loseScore")
+    lossesDisplayed.innerText = "Losses: " + losses;
+    document.getElementById("scoreContainer").append(lossesDisplayed);
+
+    let guessesDisplayed = document.getElementById("displayGuesses")
+    guessesDisplayed.innerText = "Wrong guesses remaining: " + numOfGuesses;
+    document.getElementById("scoreContainer").append(guessesDisplayed);
+}
 
 
 
