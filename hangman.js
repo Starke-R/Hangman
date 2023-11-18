@@ -8,7 +8,8 @@ let wrongGuesses = 0;
 let rightGuesses = 0;
 let numOfGuesses = 8;
 
-
+let wins
+let losses
 
 
 // Fetching API that generates a random word in English
@@ -17,9 +18,8 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
     .then((json) => {
 
         let word = json[0];
-        let wins = 0;
-        let losses = 0;
-        
+
+
 
         // The word is separated into its individual letters
         for (let i = 0; i < word.length; i++) {
@@ -27,10 +27,11 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
             let letterDiv = document.createElement("div");
             let wordLetter = word[i];
 
-            letterDiv.innerHTML = "<h1>" + wordLetter + "</h1>";
+            letterDiv.innerHTML =  wordLetter;
             letterDiv.classList.add("checker");
+            letterDiv.classList.add("hiddenLetter");
 
-            document.getElementById("containerLetters").style.marginRight = "50";
+            document.getElementById("containerLetters")
             document.getElementById("containerLetters").append(letterDiv);
 
         }
@@ -39,13 +40,14 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
 
             let underscoreDiv = document.createElement("div");
 
-            underscoreDiv.innerHTML = "<h2>" + "_" + "</h2>";
+            underscoreDiv.innerHTML = "_";
+            underscoreDiv.classList.add("showingLetter");
 
             document.getElementById("containerUnderscores").append(underscoreDiv);
-            document.getElementById("containerUnderscores").style.marginRight = "50";
+            document.getElementById("containerUnderscores")
         }
 
-        
+
 
         let winsDisplayed = document.getElementById("winScore")
         winsDisplayed.innerText = "Wins: " + wins;
@@ -77,7 +79,8 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
                         if (guess == word[i]) {
                             let check = document.getElementsByClassName("checker")
                             if (check[i].innerHTML.indexOf(word[i]) !== -1) {
-                                check[i].innerHTML = "<h2>" + word[i] + "</h2>"
+                                check[i].classList.add("showingLetter");
+                                check[i].classList.remove("hiddenLetter");
                                 document.getElementById("guessLetter").value = "";
                                 rightGuesses++;
 
@@ -95,7 +98,7 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
                         for (let i = 0; i < word.length; i++) {
                             if (!word.includes(guess)) {
                                 wrongGuesses++;
-                                drawFunction(wrongGuesses)
+                                drawFunction(wrongGuesses, word)
                                 document.getElementById("guessLetter").value = "";
                                 return
                             }
@@ -109,7 +112,7 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
     )
 
 // Function that draws the hangman
-function drawFunction(wrongGuesses) {
+function drawFunction(wrongGuesses, word) {
 
     if (wrongGuesses == 1) {
         // Horizontal ground
@@ -206,7 +209,16 @@ function drawFunction(wrongGuesses) {
         let lossesDisplayed = document.getElementById("loseScore")
         lossesDisplayed.innerText = "Losses: " + losses;
         document.getElementById("scoreContainer").append(lossesDisplayed);
-        localStorage.setItem("losses", losses);        
+        localStorage.setItem("losses", losses);
+
+
+        let reveal = document.getElementsByClassName("hiddenLetter");
+        for (let i = 0; i < reveal.length; i++) {
+        
+        reveal[i].classList.add("showingLetter");
+        reveal[i].classList.remove("hiddenLetter");
+        i--;
+        }
     }
 
 
@@ -239,6 +251,13 @@ window.onload = function () {
 
 
 /*
+
+ let correctWord = document.createElement("div");
+        correctWord.innerHTML = "<h2>" + word + "</h2>";
+        document.getElementById("containerAnswer")
+        document.getElementById("containerAnswer").append(correctWord);
+
+        
 // Horizontal ground
 ctx.strokeStyle = "white";
 ctx.beginPath();

@@ -21,34 +21,66 @@ body {
     flex-direction: column;
     justify-content: center;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: white;
-    width: 200px;
+    font-size: 20px;
+    color: black;
+    width: 300px;
     height: 350px;
     margin-top: 50px;
     margin-left: 150px;
     margin-right: 150px;   
 }
 
+#containerAnswer {
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+    height: 500px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: white;
+}
+
 #guessLetter{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 20px;
     height: 50px;
-    width: 200px;
+    width: 180px;
     align-self: center;
     color: black;
-    
+    background-color: white;
 }
 
 #displayGuesses {
-    padding-bottom: 10px;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding-bottom: 10px; 
+    padding-top: 10px;
+    border-style: solid;
+    border-radius: 10px;
 }
 
 #winScore {
-    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding-bottom: 10px; 
+    padding-top: 10px;
+    border-style: solid;
+    border-radius: 10px;
 }
 
 #loseScore {
-    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding-bottom: 10px; 
+    padding-top: 10px;
+    border-style: solid;
+    border-radius: 10px;
+
 }
 
 #containerLetters {
@@ -68,6 +100,19 @@ body {
     color: white;
 }
 
+.hiddenLetter{
+    width: 57px;
+    font-size: 50px;
+    visibility: hidden;
+}
+
+.showingLetter{
+    width: 57px;
+    font-size: 50px;
+    visibility: visible;
+    letter-spacing: 2rem;
+}
+
 h1 {
     width: 57px;
     font-size: 50px;
@@ -80,4 +125,13 @@ h2 {
     font-size: 50px;
     visibility: visible;
     letter-spacing: 2rem;
+}
+
+#newGameBtn{
+    margin-bottom: 50px;
+    color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    height: 50px;
+    font-size: 20px;
+
 }
