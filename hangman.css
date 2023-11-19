@@ -19,8 +19,9 @@ body {
     height: 500px;
 }
 
-#canvas{
+#canvas {
     margin-bottom: 50px;
+    width: 500px;
 }
 
 #scoreContainer {
@@ -33,7 +34,7 @@ body {
     width: 300px;
     height: 350px;
     margin-top: 50px;
-    margin-right: 150px;   
+    margin-right: 150px;
 }
 
 #containerAnswer {
@@ -45,7 +46,7 @@ body {
     color: white;
 }
 
-#guessLetter{
+#guessLetter {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 20px;
     height: 50px;
@@ -60,11 +61,15 @@ body {
     align-items: center;
     justify-content: center;
     background-color: white;
-    padding-bottom: 10px; 
+    padding-bottom: 10px;
     padding-top: 10px;
     border-style: solid;
     border-radius: 10px;
     margin-top: 50px;
+    position: fixed;
+    top: 150px;
+    right: 150;
+    width: 300px;
 }
 
 #loseScore {
@@ -72,11 +77,14 @@ body {
     align-items: center;
     justify-content: center;
     background-color: white;
-    padding-bottom: 10px; 
+    padding-bottom: 10px;
     padding-top: 10px;
     border-style: solid;
     border-radius: 10px;
-    margin-top: 5px;
+    position: fixed;
+    top: 250px;
+    right: 150;
+    width: 300px;
 }
 
 #displayGuesses {
@@ -84,11 +92,14 @@ body {
     align-items: center;
     justify-content: center;
     background-color: white;
-    padding-bottom: 10px; 
+    padding-bottom: 10px;
     padding-top: 10px;
     border-style: solid;
     border-radius: 10px;
-    margin-top: 5px;
+    position: fixed;
+    top: 300px;
+    right: 150;
+    width: 300px;
 }
 
 
@@ -110,25 +121,25 @@ body {
     color: white;
 }
 
-.checker{
+.checker {
     text-transform: uppercase;
     font-size: 40px !important;
 }
 
-.hiddenLetter{
+.hiddenLetter {
     width: 57px;
     font-size: 50px;
     visibility: hidden;
 }
 
-.showingLetter{
+.showingLetter {
     width: 57px;
     font-size: 50px;
     visibility: visible;
     letter-spacing: 2rem;
 }
 
-#guesses{
+#guesses {
     padding-top: 10px;
     padding-left: 50px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -140,23 +151,23 @@ body {
     background-color: white;
     border-radius: 10px;
     margin-left: 150px;
-}
 
-.guessedLetter{
-    display: flex; 
-    flex-direction: row;
-    width: 57px;
-    font-size: 30px;
+    padding-right: 30px;
+    font-size: 40px;
     text-decoration: line-through;
     text-decoration-color: red;
     text-decoration-thickness: 3px;
-    text-transform: uppercase; 
+    text-transform: uppercase;
 }
 
-#newGameBtn{
+#newGameBtn {
     margin-bottom: 50px;
     color: black;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     height: 50px;
     font-size: 20px;
+    position: fixed;
+    top: 100px;
+    right: 150;
+    width: 300px;
 }

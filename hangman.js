@@ -7,6 +7,7 @@ canvas.height = 500;
 let wrongGuesses = 0;
 let rightGuesses = 0;
 let numOfGuesses = 11;
+let guessedLetters = 0;
 
 let wins;
 let losses;
@@ -84,10 +85,8 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
                 let guess = document.getElementById("guessLetter").value;
 
                 // Printing out the guessed letters 
-                let guessedDiv = document.createElement("div");
-                guessedDiv.innerText = guess;
-                document.getElementById("guesses").append(guessedDiv);
-                guessedDiv.classList.add("guessedLetter");
+                let guessedDiv = document.getElementById("guesses")
+                guessedDiv.innerText += " " +  guess + ", ";
 
                 // If more than one letter is entered an alert is activated
                 if (guess.length > 1) {
