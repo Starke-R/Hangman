@@ -6,10 +6,10 @@ canvas.height = 500;
 
 let wrongGuesses = 0;
 let rightGuesses = 0;
-let numOfGuesses = 8;
+let numOfGuesses = 11;
 
-let wins
-let losses
+let wins;
+let losses;
 
 
 // Fetching API that generates a random word in English
@@ -27,7 +27,7 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
             let letterDiv = document.createElement("div");
             let wordLetter = word[i];
 
-            letterDiv.innerHTML =  wordLetter;
+            letterDiv.innerHTML = wordLetter;
             letterDiv.classList.add("checker");
             letterDiv.classList.add("hiddenLetter");
 
@@ -36,6 +36,7 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
 
         }
 
+        // Printing out underscore for every letter in the word
         for (let i = 0; i < word.length; i++) {
 
             let underscoreDiv = document.createElement("div");
@@ -48,15 +49,29 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
         }
 
 
+        //Printing out number of wins, losses and remaining guesses
 
+        // If wins are more than 0, print
         let winsDisplayed = document.getElementById("winScore")
-        winsDisplayed.innerText = "Wins: " + wins;
+        winsDisplayed.innerText = "Wins: ";
         document.getElementById("scoreContainer").append(winsDisplayed);
 
+        if (wins > 0) {
+            winsDisplayed.innerText = "Wins: " + wins;
+            document.getElementById("scoreContainer").append(winsDisplayed)
+        }
+
+        // If losses are more than 0, print
         let lossesDisplayed = document.getElementById("loseScore")
-        lossesDisplayed.innerText = "Losses: " + losses;
+        lossesDisplayed.innerText = "Losses: ";
         document.getElementById("scoreContainer").append(lossesDisplayed);
 
+        if (losses > 0) {
+            lossesDisplayed.innerText = "Losses: " + losses;
+            document.getElementById("scoreContainer").append(lossesDisplayed);
+        }
+
+        // Printing number of remaining wrong guesses
         let guessesDisplayed = document.getElementById("displayGuesses")
         guessesDisplayed.innerText = "Wrong guesses remaining: " + numOfGuesses;
         document.getElementById("scoreContainer").append(guessesDisplayed);
@@ -67,6 +82,12 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
         input.addEventListener("keypress", function (event) {
             if (event.key === "Enter") {
                 let guess = document.getElementById("guessLetter").value;
+
+                // Printing out the guessed letters 
+                let guessedDiv = document.createElement("div");
+                guessedDiv.innerText = guess;
+                document.getElementById("guesses").append(guessedDiv);
+                guessedDiv.classList.add("guessedLetter");
 
                 // If more than one letter is entered an alert is activated
                 if (guess.length > 1) {
@@ -84,6 +105,7 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
                                 document.getElementById("guessLetter").value = "";
                                 rightGuesses++;
 
+                                // If all letters guessed are correct, add a win and save to local storage
                                 if (rightGuesses == word.length) {
                                     wins++;
                                     let winsDisplayed = document.getElementById("winScore")
@@ -105,6 +127,10 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
                         }
                     }
                 }
+
+
+
+
             }
         });
 
@@ -179,7 +205,7 @@ function drawFunction(wrongGuesses, word) {
     }
 
     if (wrongGuesses == 7) {
-        // Body
+        // Torso
         ctx.beginPath();
         ctx.moveTo(155, 350);
         ctx.lineTo(155, 230);
@@ -189,20 +215,40 @@ function drawFunction(wrongGuesses, word) {
     }
 
     if (wrongGuesses == 8) {
-        // Arms and legs
-        ctx.beginPath();
-        ctx.moveTo(155, 350);
-        ctx.lineTo(155, 230);
+        // Right arm
         ctx.moveTo(200, 290);
         ctx.lineTo(155, 235);
+        ctx.lineWidth = 5;
+        ctx.stroke();
+        numOfGuesses--;
+    }
+
+    if (wrongGuesses == 9) {
+        // Right leg
         ctx.moveTo(200, 390);
         ctx.lineTo(155, 347);
+        ctx.lineWidth = 5;
+        ctx.stroke();
+        numOfGuesses--;
+    }
+
+    if (wrongGuesses == 10) {
+        // Left arm
         ctx.moveTo(100, 290);
         ctx.lineTo(155, 235);
+        ctx.lineWidth = 5;
+        ctx.stroke();
+        numOfGuesses--;
+    }
+
+
+    if (wrongGuesses == 11) {
+        // Left leg
         ctx.moveTo(100, 390);
         ctx.lineTo(155, 347);
         ctx.lineWidth = 5;
         ctx.stroke();
+
         numOfGuesses--;
         alert("You lose!");
         losses++;
@@ -214,10 +260,10 @@ function drawFunction(wrongGuesses, word) {
 
         let reveal = document.getElementsByClassName("hiddenLetter");
         for (let i = 0; i < reveal.length; i++) {
-        
-        reveal[i].classList.add("showingLetter");
-        reveal[i].classList.remove("hiddenLetter");
-        i--;
+
+            reveal[i].classList.add("showingLetter");
+            reveal[i].classList.remove("hiddenLetter");
+            i--;
         }
     }
 
@@ -252,12 +298,7 @@ window.onload = function () {
 
 /*
 
- let correctWord = document.createElement("div");
-        correctWord.innerHTML = "<h2>" + word + "</h2>";
-        document.getElementById("containerAnswer")
-        document.getElementById("containerAnswer").append(correctWord);
-
-        
+       
 // Horizontal ground
 ctx.strokeStyle = "white";
 ctx.beginPath();
@@ -316,6 +357,7 @@ ctx.moveTo(155, 350);
 ctx.lineTo(155, 230);
 ctx.lineWidth = 5;
 ctx.stroke();
+*/
 
 // Arms and legs
 ctx.beginPath();
@@ -332,4 +374,3 @@ ctx.lineTo(155, 347);
 
 ctx.lineWidth = 5;
 ctx.stroke();
-*/
