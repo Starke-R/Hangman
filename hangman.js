@@ -79,21 +79,19 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
 
 
         // Gets the value from the input field when "enter" is pressed
+        let guessedArr = [];
         let input = document.getElementById("guessLetter");
         input.addEventListener("keypress", function (event) {
             if (event.key === "Enter") {
                 let guess = document.getElementById("guessLetter").value;
 
-                // Printing out the guessed letters 
-                let guessedDiv = document.getElementById("guesses")
-                guessedDiv.innerText += " " +  guess + ", ";
 
                 // If more than one letter is entered an alert is activated
                 if (guess.length > 1) {
                     alert("No more than one letter at a time!");
                 }
 
-                // Checks if the guessed letter is correct, in which case the letter is goes from hidden to being displayed
+                // Checks if the guessed letter is correct, in which case the letter goes from hidden to being displayed
                 else {
                     for (let i = 0; i < word.length; i++) {
                         if (guess == word[i]) {
@@ -101,8 +99,16 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
                             if (check[i].innerHTML.indexOf(word[i]) !== -1) {
                                 check[i].classList.add("showingLetter");
                                 check[i].classList.remove("hiddenLetter");
-                                document.getElementById("guessLetter").value = "";
-                                rightGuesses++;
+                                document.getElementById("guessLetter").value = "";                             
+
+                                // Print the letter as an already gussed letter, unless it has already been guessed before
+                                if (!guessedArr.includes(guess)) {
+                                    guessedArr.push(guess);
+                                    rightGuesses++;
+
+                                    let guessedDiv = document.getElementById("guesses")
+                                    guessedDiv.innerText += " " + guess + ", ";
+                                }
 
                                 // If all letters guessed are correct, add a win and save to local storage
                                 if (rightGuesses == word.length) {
@@ -117,12 +123,20 @@ fetch("https://random-word-api.herokuapp.com/word?lang=en")
 
                         // Checks if the guessed letter is incorrect, if so then call function to draw the hangman
                         for (let i = 0; i < word.length; i++) {
-                            if (!word.includes(guess)) {
+
+                            if (!word.includes(guess) && !guessedArr.includes(guess)) {
                                 wrongGuesses++;
+                                guessedArr.push(guess);
                                 drawFunction(wrongGuesses, word)
                                 document.getElementById("guessLetter").value = "";
+                                let guessedDiv = document.getElementById("guesses")
+                                guessedDiv.innerText += " " + guess + ", ";
                                 return
                             }
+                            else {
+                                document.getElementById("guessLetter").value = "";
+                            }
+                            
                         }
                     }
                 }
